@@ -46,7 +46,7 @@ python -m robolearn.train --task bc --log-dir $OUTPUT_DIR --train-path $DATASET/
 ```
 
 ## Evaluation
-To evaluat a trained policy run:
+To evaluate a trained policy run:
 
 ```
 python -m robolearn.evaluate.policy --checkpoint $OUTPUT_DIR/checkpoint.pth --env-name Stack-v0 --episodes 250 --checkpoint $OUTPUT_DIR  --record
