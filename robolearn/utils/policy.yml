@@ -1,0 +1,64 @@
+# python logs.py policy.yml --y-key val_success_rate
+# root: /gpfswork/rech/pvn/uqn73qm/models_pose
+root: /home/rgarciap/Remote/models_bc
+logs:
+  # pick_aug: pick_aug/resnet18
+  # pick_bop: pick_bop/resnet18
+  # pick_bop_aug: pick_bop_aug/resnet18
+  # stack_aug: stack_aug/resnet18
+  # stack_bop: stack_bop/resnet18
+  # ################ Stack ##############
+  # stack_low_lights: stack_bop_aug/resnet18/
+  # stack_high_light_small distance between cubes: stack_bop_aug_new_light/resnet18
+  # stack_high_light: stack_bop_aug_new_light_higher_evaldr/resnet18
+  # robin: robin
+  ################# Push ###############
+  # 500_dr_vanilla: new_push_v4_dr_500/resnet18
+  # 1k_dr_vanilla: new_push_v4_dr_1k/resnet18
+  # 1k500_dr_vanilla: new_push_v4_dr_1k500/resnet18
+  # 2k_dr_vanilla: new_push_v4_dr_2k/resnet18
+  # 2k500_dr_vanilla: new_push_v4_dr_2k500/resnet18
+  # 3k_dr_vanilla: new_push_v4_dr_3k/resnet18
+  # 4k_dr_vanilla: new_push_v4_dr_4k/resnet18
+  # 500_dr: new_push_v4_dr_500_eval/resnet18
+  # 1k_dr: new_push_v4_dr_1k_eval/resnet18
+  # 1k500_dr: new_push_v4_dr_1k500_eval/resnet18
+  # 2k_dr: new_push_v4_dr_2k_eval/resnet18
+  # 2k500_dr: new_push_v4_dr_2k500_eval/resnet18
+  # 3k_dr: new_push_v4_dr_3k_eval/resnet18
+  # 4k_dr: new_push_v4_dr_4k_eval/resnet18
+  # 500_diffaug: new_push_v4_diffaug_500/resnet18
+  # 1k_diffaug: new_push_v4_diffaug_1k/resnet18
+  # 1k500_diffaug: new_push_v4_diffaug_1k500/resnet18
+  # 2k_diffaug: new_push_v4_diffaug_2k/resnet18
+  # 2k500_diffaug: new_push_v4_diffaug_2k500/resnet18
+  # 3k_diffaug: new_push_v4_diffaug_3k/resnet18
+  # 4k_diffaug: new_push_v4_diffaug_4k/resnet18
+  # 500_dr: new_push_v3_dr_500_eval/resnet18
+  # 1k_dr: new_push_v3_dr_1k_eval/resnet18
+  # 1k500_dr: new_push_v3_dr_1k500_eval/resnet18
+  # 2k_dr: new_push_v3_dr_2k_eval/resnet18
+  ####################### Push and Pick ###################
+  # 4k_dr: push_and_pick_dr_4k_v3
+  # 2k_dr: push_and_pick_dr_2k_bis_v3
+  # 1k_dr: push_and_pick_dr_1k_v3
+  # 500_dr: push_and_pick_dr_500_v3
+  # ##################### Push and Pick Diffaug ##########
+  # 4k_diffaug: push_and_pick_diffaug_4k_v3
+  # 2k_diffaug: push_and_pick_diffaug_2k_bis_v3
+  # 1k_diffaug: push_and_pick_diffaug_1k_v3
+  # 500_diffaug: push_and_pick_diffaug_500_v3
+  push_and_pick: push_and_pick_vanilla
+  push_and_pick_dr: push_and_pick
+  # cupboard: old2/cupboard_bc2_vanilla/train_1k
+  # cupboard_dr: old2/cupboard_bc2/train_1k
+  # sweep: sweep_bc_vanilla/train_1k
+  # sweep: sweep_vanilla_bis_longer
+  # sweep_dr: sweep_bis_longer
+  # rope: rope_vanilla
+  # rope_dr: rope
+  # assembly: assembly_vanilla
+  # assembly_dr: assembly
+  # stack: stack_bc_vanilla/train_1k
+  # stack_dr: stack_bc/train_1k
+

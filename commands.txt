@@ -1,0 +1,164 @@
+# Training pose
+python -m robolearn.submit.job --job-name sim/{model} --task pose --train-path $SCRATCH/robolearn/sim_pose/train --eval-path-sim $SCRATCH/robolearn/sim_pose/val --eval-path-real $SCRATCH/robolearn/real_pose/val --model resnet18
+
+# Data aug
+python -m robolearn.submit.job --job-name aug_sim/{model} --task pose --train-path $SCRATCH/robolearn/sim_pose/train --eval-path-sim $SCRATCH/robolearn/sim_pose/val --eval-path-real $SCRATCH/robolearn/real_pose/val --model resnet18
+
+# Training pose DR - BOP
+python -m robolearn.submit.job --job-name dr_bop/{model} --task pose --train-path $SCRATCH/robolearn/dr_sim_pose/train --eval-path-sim $SCRATCH/robolearn/sim_pose/val --eval-path-real $SCRATCH/robolearn/real_pose/val --model resnet18
+
+# Training pose DR - Mixed Mujoco BOP
+python -m robolearn.submit.job --job-name dr_mixed/{model} --task pose --train-path $SCRATCH/robolearn/mixed_dr_sim_pose/train --eval-path-sim $SCRATCH/robolearn/sim_pose/val --eval-path-real $SCRATCH/robolearn/real_pose/val --model resnet18
+
+# Training pose DR - Mujoco
+python -m robolearn.submit.job --job-name dr_mujoco/{model} --task pose --train-path $SCRATCH/robolearn/onlymujoco_dr_sim_pose/train --eval-path-sim $SCRATCH/robolearn/sim_pose/val --eval-path-real $SCRATCH/robolearn/real_pose/val --model resnet18
+
+# Training pose DR - BOP + Data Aug.
+python -m robolearn.submit.job --job-name aug_dr_bop/{model} --task pose --train-path $SCRATCH/robolearn/dr_sim_pose/train --eval-path-sim $SCRATCH/robolearn/sim_pose/val --eval-path-real $SCRATCH/robolearn/real_pose/val --model resnet18
+
+# Training pose Real
+python -m robolearn.submit.job --job-name real_20k/{model} --task pose --train-path $SCRATCH/robolearn/real_pose/train --eval-path-sim $SCRATCH/robolearn/sim_pose/val --eval-path-real $SCRATCH/robolearn/real_pose/val --model resnet18
+
+
+# Collect
+
+python -m robolearn.collect.poses --output-dir $DATASET/robolearn/sim_pose/train/ --poses 20000 --env-name Pick-v0
+
+python -m robolearn.collect.poses --output-dir $DATASET/robolearn/sim_pose/val/ --seed 100000 --poses 1000 --env-name Pick-v0
+
+python -m robolearn.collect.poses --output-dir $DATASET/robolearn/dr_sim_pose/train/ --poses 20000 --env-name DR-Pick-v0
+
+python -m robolearn.collect.poses--output-dir $DATASET/robolearn/mixed_dr_sim_pose/train/ --poses 20000 --env-name DR-Pick-v0
+
+python -m robolearn.collect.poses --output-dir $DATASET/robolearn/onlymujoco_dr_sim_pose/train/ --poses 20000 --env-name DR-Pick-v0
+
+
+
+
+##################################################################################
+##################################### Policy #####################################
+##################################################################################
+
+# Pick Sim
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/sim_pick/train/ --episodes 1000 --seed 0 --env-name Pick-v0
+
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/sim_pick/val/ --episodes 25 --seed 5000 --env-name Pick-v0 --num-workers 1
+
+# Pick DR
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/dr_sim_pick/train/ --episodes 1000 --seed 0 --env-name DR-Pick-v0
+
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/dr_sim_pick/val/ --episodes 25 --seed 5000 --env-name DR-Pick-v0 --num-workers 1
+
+# Stack Sim
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/sim_stack/train/ --episodes 1000 --seed 0 --env-name Stack-v0
+
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/sim_stack/val/ --episodes 25 --seed 5000 --env-name Stack-v0 --num-workers 1
+
+# Stack DR
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/dr_sim_stack/train/ --episodes 1000 --seed 0 --env-name DR-Stack-v0
+
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/dr_sim_stack/val/ --episodes 25 --seed 5000 --env-name DR-Stack-v0 --num-workers 1
+
+# Stack Sim + Masks
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/seg_sim_stack/train/ --episodes 1000 --seed 0 --env-name Stack-v0 --masks
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/seg_sim_stack/val/ --episodes 25 --seed 5000 --env-name Stack-v0 --masks --num-workers 1
+# Stack DR + Masks
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/seg_dr_sim_stack/train/ --episodes 1000 --seed 0 --env-name DR-Stack-v0 --masks
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/seg_dr_sim_stack/val/ --episodes 25 --seed 5000 --env-name DR-Stack-v0 --masks --num-workers 1
+
+# Push DR + Masks
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/new/seg_dr_sim_push/train/ --episodes 1000 --seed 0 --env-name DR-Push-v0 --masks
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/new/seg_dr_sim_push/val/ --episodes 25 --seed 5000 --env-name DR-Push-v0 --masks --num-workers 1
+
+# Push v2 DR
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/new/seg_dr_sim_push_v3/train/ --episodes 1000 --seed 0 --env-name DR-Push-v0 --masks
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/new/seg_dr_sim_push_v2/val/ --episodes 25 --seed 5000 --env-name DR-Push-v0 --masks --num-workers 1
+
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/new/seg_dr_sim_push_v3/train/ --episodes 1000 --seed 0 --env-name DR-Push-v0 --masks
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/new/seg_dr_sim_push_v3/val/ --episodes 25 --seed 5000 --env-name DR-Push-v0 --masks --num-workers 1
+
+# Stack Multimodal Policy
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/new/seg_dr_sim_stack_multi_v2/train/ --episodes 1000 --seed 0 --env-name DR-Stack-v0 --masks
+python -m robolearn.collect.demos --output-dir $DATASET/robolearn/new/seg_dr_sim_stack_multi_v2/val/ --episodes 25 --seed 5000 --env-name DR-Stack-v0 --masks --num-workers 1
+
+
+-----------
+# Pick Training - aug
+python -m robolearn.submit.job --job-name pick_aug/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/sim_pick/train/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/sim_pick/val/ --eval-env Pick-v0 --model resnet18
+
+# Pick Training - BOP
+python -m robolearn.submit.job --job-name pick_bop/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/dr_sim_pick/train/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/sim_pick/val/ --eval-env Pick-v0 --model resnet18
+
+# Pick Training - BOP + aug
+python -m robolearn.submit.job --job-name pick_bop_aug/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/dr_sim_pick/train/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/sim_pick/val/ --eval-env Pick-v0 --model resnet18
+
+# Stack Training - aug
+python -m robolearn.submit.job --job-name stack_aug/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/sim_stack/train/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/sim_stack/val/ --eval-env Stack-v0 --model resnet18
+
+# Stack Training - BOP
+python -m robolearn.submit.job --job-name stack_bop/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/dr_sim_stack/train/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/sim_stack/val/ --eval-env Stack-v0 --model resnet18
+
+# Stack Training - BOP + aug
+python -m robolearn.submit.job --job-name stack_bop_aug/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/dr_sim_stack/train/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/sim_stack/val/ --eval-env Stack-v0 --model resnet18
+
+# Stack Training - Diffaug
+python -m robolearn.submit.job --job-name stack_diffaug/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/seg_sim_stack/train/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/seg_sim_stack/val/ --eval-env Stack-v0 --model resnet18
+
+# Stack Training - real
+python -m robolearn.submit.job --job-name stack_real/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/real_stack/real/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/real_stack/sim/ --eval-env Stack-v0 --model resnet18
+
+# Push Training - BOP + aug
+python -m robolearn.submit.job --job-name new_push_v3_dr_500_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/train_500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/val/ --eval-env DR-Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v3_dr_1k_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/train_1k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/val/ --eval-env DR-Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v3_dr_1k500_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/train_1k500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/val/ --eval-env DR-Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v3_dr_2k_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/train_2k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/val/ --eval-env DR-Push-v0 --model resnet18
+
+
+
+python -m robolearn.submit.job --job-name new_push_v3_dr_3k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/train_3k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v3_dr_4k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/train_4k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v3/val/ --eval-env Push-v0 --model resnet18
+
+# Push Training - BOP + aug
+python -m robolearn.submit.job --job-name new_push_v3_diffaug_500/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v3/train_500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v3/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v3_diffaug_1k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v3/train_1k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v3/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v3_diffaug_1k500/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v3/train_1k500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v3/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v3_diffaug_2k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v3/train_2k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v3/val/ --eval-env Push-v0 --model resnet18
+
+
+# Push Training - diffaug v4
+python -m robolearn.submit.job --job-name new_push_v4_diffaug_500/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/train_500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_diffaug_1k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/train_1k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_diffaug_1k500/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/train_1k500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_diffaug_2k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/train_2k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_diffaug_2k500/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/train_2k500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+
+python -m robolearn.submit.job --job-name new_push_v4_diffaug_3k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/train_3k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_diffaug_4k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/train_4k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+
+
+# Push Training - BOP + aug v4
+python -m robolearn.submit.job --job-name new_push_v4_dr_500/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_dr_1k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_1k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_dr_1k500/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_1k500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_dr_2k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_2k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_dr_2k500/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_2k500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+
+
+python -m robolearn.submit.job --job-name new_push_v4_dr_3k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_3k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_dr_4k/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_4k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env Push-v0 --model resnet18
+
+
+# Push Training - BOP + aug v4
+python -m robolearn.submit.job --job-name new_push_v4_dr_500_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env DR-Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_dr_1k_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_1k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env DR-Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_dr_1k500_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_1k500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env DR-Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_dr_2k_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_2k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env DR-Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_dr_2k500_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_2k500/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env DR-Push-v0 --model resnet18
+
+python -m robolearn.submit.job --job-name new_push_v4_dr_3k_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_3k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env DR-Push-v0 --model resnet18
+python -m robolearn.submit.job --job-name new_push_v4_dr_4k_eval/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/train_4k/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_push_v4/val/ --eval-env DR-Push-v0 --model resnet18
+
+
+
+# Stack Training - BOP + aug
+python -m robolearn.submit.job --job-name stack_multi_v2_bop_aug/{model} --task bc --train-path /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_stack_multi_v2/train/ --eval-path-sim /gpfsscratch/rech/pvn/uqn73qm/robolearn/new/seg_dr_sim_stack_multi_v2/val/ --eval-env Stack-v0 --model resnet18

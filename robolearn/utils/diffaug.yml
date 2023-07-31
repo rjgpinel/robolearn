@@ -1,0 +1,14 @@
+# python -m robolearn.utils.logs diffaug.yml --y-key val_target_pose_error --vmax 2 --x-key epoch
+# root: /gpfswork/rech/pvn/uqn73qm/models_pose
+root: /home/rgarciap/Remote/models_diffaug
+logs:
+  # dr+diffaug_L1: dr_seg_masked_bg2/1
+  # dr+diffaug_L2: dr_seg_masked_bg2/2
+  # dr+diffaug_L4: dr_seg_masked_bg2/4
+  # diffaug_L1: seg_masked_bg2/1
+  # diffaug_L2: seg_masked_bg2/2
+  diffaug_L4: seg_masked_bg2/4
+  noopt_diffaug: noopt_seg_masked_bg2/4
+  noopt_discriminator: noopt_disc_seg_masked_bg2/4
+  noopt_regressor: noopt_reg_seg_masked_bg2/4
+
