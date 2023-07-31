@@ -1,4 +1,4 @@
-# Behavioural Cloning Policy Learning Implementation + sim-to-real transfer
+# BC Policy Learning + sim-to-real transfer
 
 ## Installation
 
